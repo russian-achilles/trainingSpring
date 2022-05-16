@@ -25,7 +25,7 @@ public class BoardController {
     public String postComment(@ModelAttribute CommentForm comment) {
         // TODO: process POST request
 
-        return "board";
+        return "redirect:/board";
     }
 
 }
