@@ -11,5 +11,8 @@ spring:
       username: sa
       password:
       driver-class-name: org.h2.Driver
-    schema: classpath:h2/schema.sql
-    initialization-mode: embedded # (DB初期化用SQL↑実行を)常に行う.EMBEDDED=h2dbのとき、の意味. ALWAYSは無条件
+  sql:
+    init:
+      schema-locations:
+        - classpath:h2/schema.sql
+      mode: embedded
