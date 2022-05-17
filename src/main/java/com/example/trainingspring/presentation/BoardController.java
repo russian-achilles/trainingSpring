@@ -3,6 +3,8 @@ package com.example.trainingspring.presentation;
 import com.example.trainingspring.application.form.CommentForm;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +24,15 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public String postComment(@ModelAttribute CommentForm comment) {
+    public ModelAndView postComment(@Validated @ModelAttribute CommentForm comment, BindingResult bindingResult) {
         // TODO: process POST request
 
-        return "redirect:/board";
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("/board");
+            modelAndView.addObject("commentForm", comment);
+            return modelAndView;
+        }
+        return new ModelAndView("redirect:/board");
     }
 
 }
