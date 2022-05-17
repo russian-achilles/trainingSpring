@@ -27,3 +27,12 @@ footer {
     background-color: #f0f8ff;
     padding: 0.5rem 1rem;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.error-message {
+    color: #e02525;
+}
