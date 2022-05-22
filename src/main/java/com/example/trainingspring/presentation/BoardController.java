@@ -1,6 +1,7 @@
 package com.example.trainingspring.presentation;
 
 import com.example.trainingspring.application.form.CommentForm;
+import com.example.trainingspring.application.form.usecase.UserCommentUseCase;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
+    private final UserCommentUseCase userCommentUseCase;
 
     @GetMapping("/board")
     public ModelAndView viewBoard(ModelAndView modelAndView) {
@@ -25,14 +27,12 @@ public class BoardController {
 
     @PostMapping("/board")
     public ModelAndView postComment(@Validated @ModelAttribute CommentForm comment, BindingResult bindingResult) {
-        // TODO: process POST request
-
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("/board");
             modelAndView.addObject("commentForm", comment);
             return modelAndView;
         }
+        userCommentUseCase.write(comment);
         return new ModelAndView("redirect:/board");
     }
-
 }
